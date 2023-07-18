@@ -193,10 +193,27 @@ const deleteUser = async(req,res)=>{
             },
             include:[School]
           });
-          res.status(200).json({
-            status: true,
-            response
-          });
+          if(user.role === "Moderator"){
+            if(user.schoolId !== null){
+              res.status(200).json({
+                status: true,
+                response
+              });
+            }
+            else{
+              res.status(403).json({
+                status: false,
+                message: "Headmaster is not assigned to any school"
+              });
+            }
+          }
+          else{
+            res.status(200).json({
+              status: true,
+              response
+            });
+          }
+         
         } else {
           res.status(403).json({
             status: false,

@@ -7,17 +7,17 @@
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
+    "username": "u538354595_root",
+    "password": "Alumni@2023",
+    "database": "u538354595_alumni",
+    "host": "srv527.hstgr.io",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "u538354595_root",
+    "password": "Alumni@2023",
+    "database": "u538354595_alumni",
+    "host": "srv527.hstgr.io",
     "dialect": "mysql"
   }
 }

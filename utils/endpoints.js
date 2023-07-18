@@ -1,4 +1,4 @@
 const production_endpoint =
-  "http://localhost:5000/";
+  "https://shulealumnibackendat2023.onrender.com/"
 
 module.exports = production_endpoint;

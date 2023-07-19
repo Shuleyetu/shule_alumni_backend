@@ -226,7 +226,7 @@ const deleteUser = async(req,res)=>{
     }
   };
 
-
+ 
   const getAllUsers = async(req,res)=>{
     try {
       const response = await User.findAll({include:[School],where:{
@@ -258,7 +258,6 @@ const deleteUser = async(req,res)=>{
             role:"Alumni"
           }
         ]
-    
       }})
      successResponse(res,response)
     } catch (error) {

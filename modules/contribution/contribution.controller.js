@@ -53,6 +53,20 @@ const getContributions = async(req,res)=>{
         errorResponse(res,error)
     }
 }
+const paymentWebhook = async(req,res)=>{
+try {
+    const secretHash = process.env.FLW_SECRET_HASH;
+    const signature = req.headers["verif-hash"];
+    if (!signature || (signature !== secretHash)) {
+        res.status(401).end();
+    }
+    const payload = req.body;
+    
+    res.status(200).end()
+} catch (error) {
+    errorResponse(res,error)
+}
+}
 
 const deleteContribution = async(req,res)=>{
     try {
@@ -69,5 +83,5 @@ const deleteContribution = async(req,res)=>{
     }
 }
 module.exports = {
-    createContribution,getContributions,deleteContribution,totalContribution
+    createContribution,getContributions,deleteContribution,totalContribution,paymentWebhook
 }

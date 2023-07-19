@@ -10,6 +10,7 @@ const PledgeRoutes = require("./modules/pledge/pledge.routes")
 const ContributionRoutes = require("./modules/contribution/contribution.routes")
 const JobRoutes = require("./modules/school_job/job.routes")
 const MemoriumRoutes = require("./modules/school_memorium/memorium.routes")
+const TransactionRoutes = require("./modules/transaction/transaction_routes")
 
 
 
@@ -32,6 +33,8 @@ app.use("/pledge",PledgeRoutes)
 app.use("/contribution",ContributionRoutes)
 app.use("/job",JobRoutes)
 app.use("/memorium",MemoriumRoutes)
+app.use("/transaction",TransactionRoutes)
+
 
 app.get('/',(req,res)=>{
     res.send("It is running well")

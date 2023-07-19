@@ -143,7 +143,11 @@ const getAllProjectTransactions = async(req,res)=>{
 }
 const getAllTransactionHistory = async(req,res)=>{
     try {
-        const data = await Transaction.findAll()
+        const data = await Transaction.findAll({
+            where:{
+                pledgeId:null
+            }
+        })
         successResponse(res,data)
     } catch (error) {
        errorResponse(res,error)

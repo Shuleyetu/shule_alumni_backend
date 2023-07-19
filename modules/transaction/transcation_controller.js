@@ -135,12 +135,16 @@ const getAllProjectTransactions = async(req,res)=>{
             include: [
               {
                 model: Pledge,
+
                 where: {
                   projectId: project.id, // Filter pledges based on the project ID
                 },
                 include: [
                   {
                     model: Project, // Include the Project model to access its properties
+                  },
+                  {
+                    model: User, // Include the Project model to access its properties
                   },
                 ],
               },

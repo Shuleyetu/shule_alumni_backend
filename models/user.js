@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       User.belongsTo(models.School)
       User.hasMany(models.Pledge)
+      User.hasMany(models.Transaction)
       // define association here
     }
   }

@@ -84,7 +84,8 @@ const recordWebhookData = async (req, res) => {
             customer_name: payload.customer.name,
             customer_phone: payload.customer.phone_number,
             customer_email: payload.customer.email,
-            pledgeId:pledge.id
+            pledgeId:pledge.id,
+            userId:pledge.userId
         };
 
         // Create a transaction record in the database with the extracted data

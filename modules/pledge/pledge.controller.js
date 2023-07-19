@@ -6,9 +6,9 @@ const createPledge = async(req,res)=>{
 try {
     const {
         amount,user_uuid
+
     } = req.body;
     const uuid = req.params.uuid
-
     const project = await Project.findOne({
         where:{
             uuid

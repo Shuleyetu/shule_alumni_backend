@@ -55,12 +55,7 @@ const getProjects = async(req,res)=>{
                 schoolId:school.id
             }
         })
-        const pledgeCount = await Pledge.count({
-            where:{
-                projectId:project.id
-            }
-        })
-        project.pledgeCount = pledgeCount;
+   
         const response = project;
         successResponse(res,response)
     } catch (error) {

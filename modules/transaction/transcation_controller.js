@@ -94,9 +94,6 @@ const recordWebhookData = async (req, res) => {
             pledgeId
         };
 
-        // Send the extracted data as the response
-     
-
         // Create a transaction record in the database with the extracted data
         await Transaction.create({
             ...data

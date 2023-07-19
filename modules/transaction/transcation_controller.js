@@ -74,7 +74,7 @@ const recordWebhookData = async (req, res) => {
         let userId = null;
         let pledgeId = null;
         const payload = req.body.data;
-
+        console.log(payload)
         // If the payload contains user UUID, find the user based on the UUID
         if (payload.customer.user_uuid) {
             const user = await User.findOne({

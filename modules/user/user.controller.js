@@ -270,10 +270,7 @@ const deleteUser = async(req,res)=>{
       const response = await User.findAll({
       where:
           {
-            role:"Moderator",
-            schoolId:{
-              [Op.eq]:null
-            }
+            role:"Moderator"
       }})
      successResponse(res,response)
     } catch (error) {

@@ -1,5 +1,5 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
-const {Project,School} = require("../../models");
+const {Project,School,Pledge} = require("../../models");
 const production_endpoint = require("../../utils/endpoints");
 
 const createProject = async(req,res)=>{
@@ -50,11 +50,18 @@ const getProjects = async(req,res)=>{
                 uuid
             }
         });
-        const response = await Project.findAll({
+        const project = await Project.findAll({
             where:{
                 schoolId:school.id
             }
         })
+        const pledgeCount = await Pledge.count({
+            where:{
+                projectId:project.id
+            }
+        })
+        project.pledgeCount = pledgeCount;
+        const response = project;
         successResponse(res,response)
     } catch (error) {
         errorResponse(res,error)

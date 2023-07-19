@@ -1,14 +1,7 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
 const {Transaction,Pledge,User} = require("../../models");
 
-const getHash = async (req,res)=>{
-    try {
-        const secretHash = process.env.FLW_SECRET_HASH;
-        res.send(secretHash)
-    } catch (error) {
-        
-    }
-}
+
 const recordWebhookData = async (req, res) => {
     try {
         const secretHash = process.env.FLW_SECRET_HASH;
@@ -85,5 +78,5 @@ const getAllTransactionHistory = async(req,res)=>{
 
 
 module.exports = {
-    getHash,recordWebhookData,getAllTransactionHistory
+    recordWebhookData,getAllTransactionHistory
 }

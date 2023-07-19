@@ -26,15 +26,13 @@ const transactionRequest =  async (req,res)=>{
             }
         })
         const response = await axios.post("https://api.flutterwave.com/v3/payments", {
-            tx_ref: uniqueKey,
+            tx_ref: pledge.uuid,
             amount: pledge.amount,
             currency: "TZS",
             redirect_url: `https://shulealumni.com/dashboard/projects/details/${project.uuid}`,
             customer: {
                 email: user.email,
                 phoneNumber: user.phone,
-                user_uuid:user.uuid,
-                pledge_uuid:pledge.uuid,
                 name: user.name
             },
             customizations: {
@@ -65,42 +63,20 @@ const recordWebhookData = async (req, res) => {
         const secretHash = process.env.FLW_SECRET_HASH;
         const signature = req.headers["verif-hash"];
        
-        // Verify the request's signature with the secret hash
         if (!signature || (signature !== secretHash)) {
             res.status(401).end();
             return;
         }
 
-        let userId = null;
-        let pledgeId = null;
         const payload = req.body.data;
-        console.log(payload)
-        // If the payload contains user UUID, find the user based on the UUID
-        if (payload.customer.user_uuid) {
-            const user = await User.findOne({
-                where: {
-                    uuid: payload.customer.user_uuid
-                }
-            });
-            userId = user.id;
-        }
 
-        // If the payload contains pledge UUID, find the pledge based on the UUID
-        if (payload.customer.pledge_uuid) {
-            const pledge = await Pledge.findOne({
-                where: {
-                    uuid: payload.customer.pledge_uuid
-                }
-            });
-           await pledge.update({
-                paid:true
-            })
-            pledgeId = pledge.id;
-        }
-
-        // Extract relevant payment data from the payload
+        const pledge = await Pledge.findOne({
+            where: {
+                uuid: payload.tx_ref
+            }
+        });
+       
         const data = {
-            uuid:payload.tx_ref,
             amount: payload.amount,
             currency: payload.currency,
             status: payload.status,
@@ -108,8 +84,7 @@ const recordWebhookData = async (req, res) => {
             customer_name: payload.customer.name,
             customer_phone: payload.customer.phone_number,
             customer_email: payload.customer.email,
-            userId,
-            pledgeId
+            pledgeId:pledge.tx_ref
         };
 
         // Create a transaction record in the database with the extracted data

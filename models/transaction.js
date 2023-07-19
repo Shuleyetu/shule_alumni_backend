@@ -10,6 +10,9 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      Transaction.belongsTo(models.Pledge)
+      Transaction.belongsTo(models.User)
+
       // define association here
     }
   }

@@ -38,7 +38,8 @@ const getPledges = async(req,res)=>{
         });
         const response = await Pledge.findAll({
             where:{
-                projectId:project.id
+                projectId:project.id,
+                paid:false
             },
             include:[User]
         })

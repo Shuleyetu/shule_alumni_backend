@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       Pledge.belongsTo(models.User)
+      Pledge.belongsTo(models.Project)
+      Pledge.hasOne(models.Transaction)
     }
   }
   Pledge.init({

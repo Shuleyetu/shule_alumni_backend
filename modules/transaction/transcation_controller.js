@@ -70,12 +70,21 @@ const recordWebhookData = async (req, res) => {
 
         const payload = req.body.data;
 
+        let pledgeId = null;
+        let userId = null
         const pledge = await Pledge.findOne({
             where: {
                 uuid: payload.tx_ref
             }
         });
-       
+        if(pledge){
+            pledgeId= pledge.id
+            userId = pledge.userId
+            await pledge.update({
+                paid:true
+            })
+        }
+    
         const data = {
             amount: payload.amount,
             currency: payload.currency,
@@ -84,11 +93,11 @@ const recordWebhookData = async (req, res) => {
             customer_name: payload.customer.name,
             customer_phone: payload.customer.phone_number,
             customer_email: payload.customer.email,
-            pledgeId:pledge.id,
-            userId:pledge.userId
+            pledgeId,
+            userId
         };
 
-        // Create a transaction record in the database with the extracted data
+  
         await Transaction.create({
             ...data
         });

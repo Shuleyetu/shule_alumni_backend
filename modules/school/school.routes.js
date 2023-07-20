@@ -1,6 +1,6 @@
 const {Router} = require('express')
 const upload = require("../../utils/upload");
-const { createSchool, getSchools, updateSchool, deleteSchool, schoolsCount, totalSchoolResources } = require('./school.controller');
+const { createSchool, getSchools, updateSchool, deleteSchool, schoolsCount, totalSchoolResources, getSchool } = require('./school.controller');
 
 const router = Router()
 
@@ -9,6 +9,7 @@ router.patch("/:uuid",upload.single('file'),updateSchool)
 router.get("/resources/:uuid",totalSchoolResources)
 router.delete("/:uuid",deleteSchool)
 router.get('/',getSchools)
+router.get('/:uuid',getSchool)
 router.get('/count',schoolsCount)
 
 

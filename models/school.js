@@ -11,7 +11,11 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       School.hasMany(models.User)
-      // define association here
+      School.hasMany(models.SchoolNews)
+      School.hasMany(models.SchoolEvent)
+      School.hasMany(models.SchoolJob)
+      School.hasMany(models.SchoolMemoria)
+      School.hasMany(models.Project)
     }
   }
   School.init({

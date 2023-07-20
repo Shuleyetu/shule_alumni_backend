@@ -120,7 +120,6 @@ const getAllProjectTransactions = async(req,res)=>{
             include: [
               {
                 model: Pledge,
-
                 where: {
                   projectId: project.id, // Filter pledges based on the project ID
                 },

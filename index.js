@@ -11,6 +11,8 @@ const ContributionRoutes = require("./modules/contribution/contribution.routes")
 const JobRoutes = require("./modules/school_job/job.routes")
 const MemoriumRoutes = require("./modules/school_memorium/memorium.routes")
 const TransactionRoutes = require("./modules/transaction/transaction_routes")
+const MessageRoutes = require("./modules/message/message.routes")
+
 
 
 
@@ -23,7 +25,9 @@ app.use(express.json());
 app.use(express.static("files"));
 app.use(bodyParser.text({ type: "/" }));
 
+
 app.use("/user",UserRoutes)
+app.use("/pledge",UserRoutes)
 app.use("/school",SchoolRoutes)
 app.use("/schoolEvent",SchoolEventRoutes)
 app.use("/schoolNews",SchoolNewsRoutes)
@@ -34,6 +38,8 @@ app.use("/contribution",ContributionRoutes)
 app.use("/job",JobRoutes)
 app.use("/memorium",MemoriumRoutes)
 app.use("/transaction",TransactionRoutes)
+app.use("/message",MessageRoutes)
+
 
 
 app.get('/',(req,res)=>{

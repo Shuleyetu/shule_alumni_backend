@@ -4,6 +4,7 @@ const { generateJwtTokens } = require("../../utils/generateJwtTokens");
 const { successResponse, errorResponse } = require("../../utils/responses");
 const bcrypt = require('bcrypt')
 const {Op} = require("sequelize")
+
 const registerUser = async (req, res) => {
     try {
       const {

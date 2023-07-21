@@ -20,7 +20,9 @@ const MessageRoutes = require("./modules/message/message.routes")
 
 const cors = require('cors')
 const app = express()
-app.use(cors());
+app.use(cors({
+  origin: 'https://shulealumni.com',
+}));
 app.use(express.json());
 app.use(express.static("files"));
 app.use(bodyParser.text({ type: "/" }));

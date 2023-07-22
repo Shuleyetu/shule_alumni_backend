@@ -124,7 +124,7 @@ const alumniCountPerSchool = async(req,res)=>{
         });
         schoolId = school.id;
       }
-      if(password.length !== 10){
+      if(password.length < 15){
         const hashedPassword = bcrypt.hashSync(password, 10);
         password = hashedPassword;
       }

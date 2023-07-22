@@ -1,5 +1,6 @@
 const { User,School } = require("../../models");
-const production_endpoint = require("../../utils/endpoints");
+const getUrl = require("../../utils/cloudinary_upload");
+
 const { generateJwtTokens } = require("../../utils/generateJwtTokens");
 const { successResponse, errorResponse } = require("../../utils/responses");
 const bcrypt = require('bcrypt')
@@ -17,6 +18,7 @@ const registerUser = async (req, res) => {
         password
       } = req.body;
       let schoolId;
+    
       if (school_uuid) {
         const school = await School.findOne({
           where: {
@@ -25,11 +27,7 @@ const registerUser = async (req, res) => {
         });
         schoolId = school.id;
       }
-      
-      const { originalname } = req.file;
-      const image = production_endpoint + originalname;
       const user = await User.findOne({ where: { email } });
-  
       if (user) {
         res.status(403).json({
           status: false,
@@ -37,7 +35,7 @@ const registerUser = async (req, res) => {
         });
       } else {
         const hashedPassword = bcrypt.hashSync(password, 10);
-
+        const image =await getUrl(req)
         const user = await User.create({
           name,
           phone,
@@ -130,10 +128,6 @@ const alumniCountPerSchool = async(req,res)=>{
         const hashedPassword = bcrypt.hashSync(password, 10);
         password = hashedPassword;
       }
-      if(req.file){
-        const { originalname } = req.file;
-         image = production_endpoint + originalname;
-    }
 
         const uuid = req.params.uuid
         const user = await User.findOne({
@@ -142,9 +136,7 @@ const alumniCountPerSchool = async(req,res)=>{
             }
         })
         if(req.file){
-            const { originalname } = req.file;
-             image = production_endpoint + originalname;
-        }
+             image = await getUrl(req)}
         const response = await user.update({
           name,
           image,

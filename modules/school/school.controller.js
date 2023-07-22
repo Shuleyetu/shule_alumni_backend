@@ -1,15 +1,15 @@
 const { errorResponse, successResponse } = require("../../utils/responses");
 const { School, User, SchoolJob, SchoolEvent,SchoolMemoria,Project, SchoolNews, Sequelize } = require("../../models");
-const production_endpoint = require("../../utils/endpoints");
+
+const getUrl = require("../../utils/cloudinary_upload");
 
 const createSchool = async (req, res) => {
   try {
     const {
       name, email, phone, address, city, municipal, type, registration_no, registered_date, headmaster_uuid
     } = req.body;
-    const { originalname } = req.file;
-    const image = production_endpoint + originalname;
-
+    const image = await getUrl(req);
+   
     const school = await School.create({
       name, email, phone, image, address, city, municipal, type, registration_no, registered_date
     });
@@ -89,10 +89,8 @@ const updateSchool = async (req, res) => {
         uuid
       }
     });
-
     if (req.file) {
-      const { originalname } = req.file;
-      image = production_endpoint + originalname;
+     image = await getUrl(req);  
     }
 
     const response = await school.update({

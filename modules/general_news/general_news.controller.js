@@ -1,14 +1,13 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
 const {GeneralNews,SchoolNews,SchoolEvent,School} = require("../../models");
-const production_endpoint = require("../../utils/endpoints");
+const getUrl = require("../../utils/cloudinary_upload");
 
 const createGeneralNews = async(req,res)=>{
 try {
     const {
         title,description
     } = req.body;
-    const { originalname } = req.file;
-    const image = production_endpoint + originalname;
+    const image = await getUrl(req);
     const response = await GeneralNews.create({
         title,description,image
     })
@@ -41,8 +40,7 @@ const updateGeneralNews = async(req,res)=>{
         })
         
         if(req.file){
-            const { originalname } = req.file;
-             image = production_endpoint + originalname;
+             image = await getUrl(req);
         }
         const response = await generalNews.update({
             title,description,image

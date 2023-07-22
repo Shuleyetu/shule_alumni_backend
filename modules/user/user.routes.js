@@ -5,7 +5,7 @@ const upload = require("../../utils/upload");
 const { registerUser, getAllUsers, loginUser, getSchoolAlumni, getHeadmasters, deleteUser, updateUser, alumniCount, getHash, alumniCountPerSchool } = require("./user.controller");
 const { totalResources } = require("../general_news/general_news.controller");
 
-router.post("/register",upload.single('file'),registerUser)
+router.post("/register",upload.single('file'), registerUser)
 router.patch("/:uuid",upload.single('file'),updateUser)
 
 router.delete("/:uuid",deleteUser)

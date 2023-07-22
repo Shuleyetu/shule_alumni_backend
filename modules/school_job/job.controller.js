@@ -1,14 +1,12 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
 const {SchoolJob,School} = require("../../models");
-const production_endpoint = require("../../utils/endpoints");
-
+const getUrl = require("../../utils/cloudinary_upload");
 const createSchoolJob = async(req,res)=>{
 try {
     const {
         title,description,link,type
     } = req.body;
-    const { originalname } = req.file;
-    const image = production_endpoint + originalname;
+    const image = await getUrl(req);
     const uuid = req.params.uuid
     const school = await School.findOne({
         where:{
@@ -37,8 +35,7 @@ const updateSchoolJob = async(req,res)=>{
             }
         })
         if(req.file){
-            const { originalname } = req.file;
-             image = production_endpoint + originalname;
+             image = await getUrl(req);   
         }
         const response = await SchoolJob.update({
             title,description,image,link,type

@@ -1,14 +1,13 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
 const {SchoolEvent,School} = require("../../models");
-const production_endpoint = require("../../utils/endpoints");
+const getUrl = require("../../utils/cloudinary_upload");
 
 const createSchoolEvent = async(req,res)=>{
 try {
     const {
         title,description
     } = req.body;
-    const { originalname } = req.file;
-    const image = production_endpoint + originalname;
+    const image = await getUrl(req);
     const uuid = req.params.uuid
     const school = await School.findOne({
         where:{
@@ -37,8 +36,8 @@ const updateSchoolEvent = async(req,res)=>{
             }
         })
         if(req.file){
-            const { originalname } = req.file;
-             image = production_endpoint + originalname;
+              image = await getUrl(req);
+        
         }
         const response = await schoolEvent.update({
             title,description,image

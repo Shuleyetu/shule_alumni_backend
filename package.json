@@ -4,6 +4,7 @@
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "circular-json": "^0.5.9",
+    "cloudinary": "^1.38.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^16.3.1",

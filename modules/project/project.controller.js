@@ -1,6 +1,6 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
 const {Project,School,Pledge} = require("../../models");
-const production_endpoint = require("../../utils/endpoints");
+
 
 const createProject = async(req,res)=>{
 try {

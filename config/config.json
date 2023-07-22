@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "u538354595_root",
-    "password": "Alumni@2023",
-    "database": "u538354595_alumni",
-    "host": "srv527.hstgr.io",
+    "username": "root",
+    "password": "",
+    "database": "shule_alumni",
+    "host": "localhost",
     "dialect": "mysql"
   },
 "test": {

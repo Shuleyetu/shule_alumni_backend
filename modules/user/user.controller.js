@@ -126,7 +126,6 @@ const alumniCountPerSchool = async(req,res)=>{
       }
       if(password.length < 15){
         const hashedPassword = bcrypt.hashSync(password, 10);
-        res.send(hashedPassword) 
         password = hashedPassword;
       }
 
@@ -150,6 +149,7 @@ const alumniCountPerSchool = async(req,res)=>{
         })
         successResponse(res,response)
     } catch (error) {
+      console.log(error)
         errorResponse(res,error)
     }
 }

@@ -30,7 +30,7 @@ const updateSchoolMemorium = async(req,res)=>{
             name,description,image
         } = req.body;
         const uuid = req.params.uuid
-        const SchoolMemorium = await SchoolMemoria.findOne({
+        const schoolMemorium = await SchoolMemoria.findOne({
             where:{
                 uuid
             }
@@ -38,7 +38,7 @@ const updateSchoolMemorium = async(req,res)=>{
         if(req.file){
              image = await getUrl(req);
         }
-        const response = await SchoolMemoria.update({
+        const response = await schoolMemorium.update({
             name,description,image
         })
         successResponse(res,response)

@@ -29,7 +29,7 @@ const updateSchoolJob = async(req,res)=>{
             title,description,image,link,type
         } = req.body;
         const uuid = req.params.uuid
-        const SchoolJob = await SchoolJob.findOne({
+        const schoolJob = await SchoolJob.findOne({
             where:{
                 uuid
             }
@@ -37,7 +37,7 @@ const updateSchoolJob = async(req,res)=>{
         if(req.file){
              image = await getUrl(req);   
         }
-        const response = await SchoolJob.update({
+        const response = await schoolJob.update({
             title,description,image,link,type
         })
         successResponse(res,response)

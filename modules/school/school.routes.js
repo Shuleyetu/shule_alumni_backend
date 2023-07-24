@@ -9,8 +9,8 @@ router.patch("/:uuid",upload.single('file'),updateSchool)
 router.get("/resources/:uuid",totalSchoolResources)
 router.delete("/:uuid",deleteSchool)
 router.get('/',getSchools)
-router.get('/:uuid',getSchool)
 router.get('/count',schoolsCount)
+router.get('/:uuid',getSchool)
 
 
 

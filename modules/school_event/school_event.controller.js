@@ -9,6 +9,10 @@ try {
     } = req.body;
     const image = await getUrl(req);
     const uuid = req.params.uuid
+
+
+    
+    
     const school = await School.findOne({
         where:{
             uuid

@@ -27,7 +27,21 @@ try {
     errorResponse(res,error)
 }
 }
-
+const updatePledge = async(req,res)=>{
+    try {
+        const uuid = req.params.uuid;
+        const {amount} = req.body
+        const pledge = await Pledge.findOne({
+            uuid
+        })
+        const response = pledge.update({
+           amount
+        })
+        successResponse(res,response)
+    } catch (error) {
+        errorResponse(res,error)
+    }
+}
 const getPledges = async(req,res)=>{
     try {
         const uuid = req.params.uuid
@@ -80,5 +94,5 @@ const deletePledge = async(req,res)=>{
     }
 }
 module.exports = {
-    createPledge,getPledges,deletePledge,updatePledgeStatus
+    createPledge,getPledges,deletePledge,updatePledgeStatus,updatePledge
 }

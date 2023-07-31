@@ -32,7 +32,9 @@ const updatePledge = async(req,res)=>{
         const uuid = req.params.uuid;
         const {amount} = req.body
         const pledge = await Pledge.findOne({
-            uuid
+            where:{
+                uuid
+            }
         })
         const response = pledge.update({
            amount

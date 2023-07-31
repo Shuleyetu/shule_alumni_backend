@@ -4,8 +4,8 @@ const { createPledge, getPledges, deletePledge, updatePledgeStatus, updatePledge
 const router = Router()
 
 router.post("/:uuid",createPledge)
-router.patch("/:uuid",updatePledgeStatus)
 router.patch("/amount/:uuid",updatePledge)
+router.patch("/:uuid",updatePledgeStatus)
 router.get('/all/:uuid',getPledges)
 router.delete('/:uuid',deletePledge)
 

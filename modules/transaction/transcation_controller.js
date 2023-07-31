@@ -1,8 +1,9 @@
 const { errorResponse, successResponse } = require("../../utils/responses")
-const {Transaction,Pledge,User,Project} = require("../../models");
+const {Transaction,Pledge,User,Project,School} = require("../../models");
 const { v4: uuidv4 } = require('uuid');
 const { default: axios } = require("axios");
 const CircularJSON = require('circular-json');
+const { Op } = require("sequelize");
 
 const transactionRequest =  async (req,res)=>{
     
@@ -56,6 +57,52 @@ const transactionRequest =  async (req,res)=>{
         console.error(error)
         errorResponse(res,error)
         
+    }
+}
+const totalAlumniTransaction = async (req,res)=>{
+    try {
+         const sum = await Transaction.sum('amount',{
+            where:{
+                pledgeId:{
+                    [Op.eq]:null
+                }
+            }
+         })
+         successResponse(res,sum)
+    } catch (error) {
+        errorResponse(res,error)
+    }
+}
+
+const totalSchoolTransaction = async (req,res)=>{
+    try {
+        const id = req.params.id
+        
+         const transactions = await Transaction.findAll({
+            where:{
+                pledgeId:{
+                    [Op.ne]:null
+                }
+            },
+            include:[{
+                model:Pledge,
+                include:[
+                    {
+                        model:Project,
+                        where:{
+                            schoolId:id
+                        }
+                    }
+                ]
+            }]
+         })
+        let sum = 0;
+        transactions.forEach(transaction => {
+            sum = sum +transaction.amount;
+        });
+         successResponse(res,sum)
+    } catch (error) {
+        errorResponse(res,error)
     }
 }
 const recordWebhookData = async (req, res) => {
@@ -155,5 +202,5 @@ const getAllTransactionHistory = async(req,res)=>{
 
 
 module.exports = {
-    recordWebhookData,getAllTransactionHistory,transactionRequest,getAllProjectTransactions
+    recordWebhookData,getAllTransactionHistory,transactionRequest,getAllProjectTransactions,totalAlumniTransaction,totalSchoolTransaction
 }

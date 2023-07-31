@@ -11,8 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       User.belongsTo(models.School)
-      User.hasMany(models.Pledge)
-      User.hasMany(models.Transaction)
+      User.hasMany(models.Pledge,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      User.hasMany(models.Transaction,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
       // define association here
     }
   }

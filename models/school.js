@@ -10,12 +10,30 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      School.hasMany(models.User)
-      School.hasMany(models.SchoolNews)
-      School.hasMany(models.SchoolEvent)
-      School.hasMany(models.SchoolJob)
-      School.hasMany(models.SchoolMemoria)
-      School.hasMany(models.Project)
+      School.hasMany(models.User,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      School.hasMany(models.SchoolNews,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      School.hasMany(models.SchoolEvent,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      School.hasMany(models.SchoolJob,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      School.hasMany(models.SchoolMemoria,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      School.hasMany(models.Project,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
     }
   }
   School.init({

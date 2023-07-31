@@ -4,8 +4,39 @@ const getUrl = require("../../utils/cloudinary_upload");
 const { generateJwtTokens } = require("../../utils/generateJwtTokens");
 const { successResponse, errorResponse } = require("../../utils/responses");
 const bcrypt = require('bcrypt')
-const {Op} = require("sequelize")
+const {Op} = require("sequelize");
+const sendMail = require("../../utils/send_mail");
+const sendSMS = require("../../utils/send_sms");
+const addPrefixToPhoneNumber = require("../../utils/add_number_prefix");
 
+
+const sendEmail = async(req,res)=>{
+  try {
+    const {email,message} = req.body;
+    const response = await sendMail(email,message)
+    successResponse(res,response)
+  } catch (error) {
+    errorResponse(res,error)
+  }
+}
+
+const sendPasswordLink = async (req,res)=>{
+  try {
+    const {password} = req.body;
+  } catch (error) {
+    errorResponse(res,error)
+  }
+}
+const pushSMS = async(req,res)=>{
+  try {
+    const {message} = req.body;
+    let numbers = ["2557437479064"]
+    const response = await sendSMS(numbers,message)
+    successResponse(res,response)
+  } catch (error) {
+    errorResponse(res,error)
+  }
+}
 const registerUser = async (req, res) => {
     try {
       const {
@@ -52,12 +83,14 @@ const registerUser = async (req, res) => {
           },
           include:[School]
         });
-        // const tokens = generateJwtTokens(response);
-  
+        sendSMS(addPrefixToPhoneNumber(phone),`Hi ${name}, welcome to Shule Alumni. you can easily
+         find and connect with fellow alumni from your institution.
+         Reconnect with old friends, expand your professional network, or 
+         simply stay up-to-date with the achievements of your fellow graduates.`)
+
         res.status(201).json({
           status: true,
-          body: response,
-          // tokens: tokens
+          body: response
         });
       }
     } catch (error) {
@@ -290,5 +323,7 @@ const deleteUser = async(req,res)=>{
     getHash,
     updateUser,
     alumniCount,
-    deleteUser
+    deleteUser,
+    sendEmail,
+    pushSMS
   }

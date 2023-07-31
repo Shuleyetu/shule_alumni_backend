@@ -13,11 +13,6 @@ const MemoriumRoutes = require("./modules/school_memorium/memorium.routes")
 const TransactionRoutes = require("./modules/transaction/transaction_routes")
 const MessageRoutes = require("./modules/message/message.routes")
 
-
-
-
-
-
 const cors = require('cors')
 const app = express()
 app.use(cors());

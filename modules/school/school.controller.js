@@ -111,11 +111,6 @@ const deleteSchool = async (req, res) => {
         uuid
       }
     });
-
-    if (!school) {
-      return errorResponse(res, { message: "School not found" }, 404);
-    }
-
     const response = await school.destroy();
     successResponse(res, response);
   } catch (error) {
@@ -164,3 +159,4 @@ module.exports = {
   totalSchoolResources,
   getSchool
 };
+

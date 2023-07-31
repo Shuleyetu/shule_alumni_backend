@@ -2,17 +2,22 @@ const {Router} = require("express")
 
 const router = Router()
 const upload = require("../../utils/upload");
-const { registerUser, getAllUsers, loginUser, getSchoolAlumni, getHeadmasters, deleteUser, updateUser, alumniCount, getHash, alumniCountPerSchool } = require("./user.controller");
+const { registerUser, getAllUsers, loginUser, getSchoolAlumni, getHeadmasters, deleteUser, updateUser, alumniCount, getHash, alumniCountPerSchool, sendMail, sendEmail, pushSMS } = require("./user.controller");
 const { totalResources } = require("../general_news/general_news.controller");
 
 router.post("/register",upload.single('file'), registerUser)
+router.post("/mail",sendEmail)
+router.post("/sms",pushSMS)
+
 router.patch("/:uuid",upload.single('file'),updateUser)
 
 router.delete("/:uuid",deleteUser)
 
 router.post("/login",loginUser)
+
 router.get("/",getAllUsers)
 router.get("/hash",getHash)
+
 
 router.get("/count",alumniCount)
 router.get("/count/:uuid",alumniCountPerSchool)

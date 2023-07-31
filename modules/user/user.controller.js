@@ -266,6 +266,19 @@ const deleteUser = async(req,res)=>{
       errorResponse(res,error)
     }
   }
+  const getAllAlumni = async(req,res)=>{
+    try {
+      const response = await User.findAll({include:[School],
+        where:{
+        role:{
+          [Op.eq]:"Alumni"
+        }
+      }})
+     successResponse(res,response)
+    } catch (error) {
+      errorResponse(res,error)
+    }
+  }
   const getSchoolAlumni = async(req,res)=>{
     try {
       const school_uuid = req.params.uuid;
@@ -325,5 +338,6 @@ const deleteUser = async(req,res)=>{
     alumniCount,
     deleteUser,
     sendEmail,
+    getAllAlumni,
     pushSMS
   }

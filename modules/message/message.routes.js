@@ -1,8 +1,9 @@
 const {Router} = require('express')
-const { getMessages, saveMessage } = require('./message.controller');
+const { getMessages, saveMessage, replyMessage } = require('./message.controller');
 const router = Router()
 
 router.post("/",saveMessage)
+router.post("/reply",replyMessage)
 router.get('/',getMessages)
 
 

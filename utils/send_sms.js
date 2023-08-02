@@ -1,14 +1,23 @@
 const axios = require('axios');
 const circularJSON = require('circular-json');
-require('dotenv').config(); 
+require('dotenv').config();
+
+// Function to remove HTML tags from a string
+const removeHtmlTags = (input) => {
+  return input.replace(/<[^>]*>/g, '');
+};
 
 const sendSMS = async (numbers, message) => {
   try {
+    // Remove HTML tags from the message
+    const cleanedMessage = removeHtmlTags(message);
+
     const data = JSON.stringify({
       "from": "N-SMS",
       "to": numbers,
-      "text": message
+      "text": cleanedMessage  // Use the cleaned message here
     });
+    
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
@@ -20,6 +29,7 @@ const sendSMS = async (numbers, message) => {
       },
       data: data
     };
+    
     const response = await axios(config);
     // Convert the response data to a string, handling circular references
     const jsonString = circularJSON.stringify(response.data);

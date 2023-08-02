@@ -376,6 +376,14 @@ const deleteUser = async(req,res)=>{
       errorResponse(res,error)
     }
   }
+  const allUsers = async(req,res)=>{
+    try {
+      const response = await User.findAll({include:[School]})
+     successResponse(res,response)
+    } catch (error) {
+      errorResponse(res,error)
+    }
+  }
   const getAllAlumni = async(req,res)=>{
     try {
       const response = await User.findAll({include:[School],
@@ -457,6 +465,7 @@ const deleteUser = async(req,res)=>{
   module.exports = {
     registerUser,
     getAllUsers,
+    allUsers,
     getSchoolAlumni,
     getHeadmasters,
     alumniCountPerSchool,

@@ -9,7 +9,6 @@ const sendSMS = async (numbers, message) => {
       "to": numbers,
       "text": message
     });
-
     const config = {
       method: 'post',
       maxBodyLength: Infinity,
@@ -21,12 +20,9 @@ const sendSMS = async (numbers, message) => {
       },
       data: data
     };
-
     const response = await axios(config);
-
     // Convert the response data to a string, handling circular references
     const jsonString = circularJSON.stringify(response.data);
-
     return jsonString;
   } catch (error) {
     console.log(error);

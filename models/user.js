@@ -4,13 +4,17 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
+      User.hasMany(models.Gallery)
       User.belongsTo(models.School)
+      User.hasMany(models.Pledge,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
+      User.hasMany(models.Transaction,{
+        onDelete:'CASCADE',
+        hooks: true
+      })
       User.hasMany(models.Pledge,{
         onDelete:'CASCADE',
         hooks: true
@@ -42,6 +46,30 @@ module.exports = (sequelize, DataTypes) => {
      phone: {
       type: DataTypes.STRING,
       allowNull:false
+     },
+     achievement: {
+      type: DataTypes.TEXT,
+      allowNull:true
+     },
+     bio: {
+      type: DataTypes.TEXT,
+      allowNull:true
+     },
+     position: {
+      type: DataTypes.STRING,
+      allowNull:true
+     },
+     company: {
+      type: DataTypes.STRING,
+      allowNull:true
+     },
+     address: {
+      type: DataTypes.STRING,
+      allowNull:true
+     },
+     birth_date: {
+      type: DataTypes.DATE,
+      allowNull:true
      },
      password: {
       type: DataTypes.STRING,

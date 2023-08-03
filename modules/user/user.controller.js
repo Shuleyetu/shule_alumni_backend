@@ -216,6 +216,7 @@ const addGallery = async(req,res)=>{
 const deleteGallery = async(req,res)=>{
   try {
     const uuid = req.params.uuid
+    console.log(uuid)
     const gallery = await Gallery.findOne({
       uuid
     });

@@ -219,7 +219,8 @@ const deleteGallery = async(req,res)=>{
     const gallery = await Gallery.findOne({
       uuid
     });
-    await gallery.destroy();
+   const response = await gallery.destroy();
+   successResponse(response)
   } catch (error) {
     errorResponse(res,error);
   }

@@ -220,7 +220,7 @@ const deleteGallery = async(req,res)=>{
       uuid
     });
    const response = await gallery.destroy();
-   successResponse(response)
+   successResponse(res,response)
   } catch (error) {
     errorResponse(res,error);
   }
